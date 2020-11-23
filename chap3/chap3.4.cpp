@@ -22,6 +22,7 @@ public:
 // {
 // public:
 //     HasPtrMem() : d(new int(0)) { cout << "construct default 333" << endl; };
+//拷贝构造函数，从堆中分配内存，并用 *h.d 初始化
 //     HasPtrMem(const HasPtrMem &h) : d(new int(*h.d)) { cout << "construct zidingyi 444" << endl; };
 //     ~HasPtrMem() { delete d; }
 //     int *d;
