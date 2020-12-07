@@ -36,3 +36,13 @@ int main(){
     cout << is_rvalue_reference<decltype(i++)>::value << endl;          // 0
 }
 ```
+
+```txt
+我们使用了模板类 is_lvalue_reference 的成员 value 来查看decltype的效果（1表示是左值引用，0则反之）。
+正如我们缩减，代码清单中凡是符合规则3的，都会被推导为左值引用。
+如果程序员在程序的书写中不是非常确定decltype是否将类型推导为左值引用，可以通过这样的小实验辅助确定。
+这里还使用了函数 is_rvalue_referencec，同样，程序员可以通过它来确定decltype是否推导出了右值引用。
+```
+
+
+
