@@ -1,6 +1,7 @@
 
 ### decltype 推导思四规则 
 
+```c++
 
 int i = 4;
 int arr[5] = {0};
@@ -36,4 +37,7 @@ decltype("lval") var12 = "lval";    // const char(&)[9], 字符串字面常量�
 decltype(1) var13;              // int, 除字符串外字面常量为右值
 decltype(i++) var14;            // int, i++返回右值
 decltype((Func(1))) var15;      // const bool, 圆括号可以忽略
+
+```
+
 
