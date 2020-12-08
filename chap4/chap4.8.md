@@ -40,6 +40,32 @@ int main() {
 ```
 
 
+### 追踪返回类型也被广泛地应用在转发函数中 
+
+范型编程，至少在我目前这个阶段，感觉是很复杂、抽象的
+```C++
+#include <iostream>
+using namespace std;
+
+double foo(int a) {
+    return (double)a + 0.1;
+}
+
+int foo(double b) {
+    return (int)b;
+}
+
+template <class T> 
+auto Forward(T t) -> decltype(foo(t)){
+    return foo(t);
+}
+
+int main(){
+    cout << Forward(2) << endl;     // 2.1
+    cout << Forward(0.5) << endl;   // 0
+}
+
+```
 
 
 
