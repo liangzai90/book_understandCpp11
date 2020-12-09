@@ -43,3 +43,26 @@ int main()
 }
 
 ```
+
+
+一段代码片段。new 一个数组
+```c++
+int* abc = new int[10];
+	abc[0] = 0;
+	abc[1] = 1;
+	abc[2] = 2;
+	cout <<"0:"<< abc[0] << ",1:" << abc[1] << ",2:" << abc[2] << ",3:" << abc[3] << endl;
+
+
+	unique_ptr<int[]> up1(new int[10]); //无法复制的 unique_ptr
+	// unique_ptr<int> up2 = up1;   //不能通过编译
+	up1[1] = 11;
+	up1[2] = 22;
+	up1[3] = 33;
+
+	cout << "1:" << up1[1] << ",2:" << up1[2] << ",3:" << up1[3] << ",4:" << up1[4] << endl;
+
+
+```
+
+
