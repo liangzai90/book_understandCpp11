@@ -68,7 +68,8 @@ int* abc = new int[10];
 
 
 ### 注意 weak_ptr 的用法
-```
+
+```C++
 #include <iostream>
 #include <memory>
 using namespace std;
