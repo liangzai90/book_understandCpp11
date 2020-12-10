@@ -66,3 +66,59 @@ int* abc = new int[10];
 ```
 
 
+
+### 注意 weak_ptr 的用法
+```
+#include <iostream>
+#include <memory>
+using namespace std;
+
+/*
+shared_ptr 形如其名，允许多个该智能指针共享地“拥有”同一堆分配对象的内存。
+与unique_ptr不同的是，由于在实现上采用了引用计数，所以一旦一个shared_ptr指针放弃了“所有权”*（失效），
+其他的shared_ptr对 对象内存的引用并不会受到影响。
+
+weak_ptr可以指向shared_ptr指针指向的对象内存，却并不拥有该内存。
+使用 weak_ptr 成员 lock， 则可返回其指向内存的一个shared_ptr对象，
+且在所指对象内存已经无效时，返回指针空值（nullptr）
+这在验证shared_ptr智能指针的有效性上会很有作用
+
+*/
+
+// weak_ptr 没有影响其指向的内存的引用计数，因此可以验证 shared_ptr 指针的有效性
+void Check(weak_ptr<int> &wp)
+{
+    shared_ptr<int> sp = wp.lock(); //转为 shared_ptr<int>
+    if (sp != nullptr)
+    {
+        cout << "still " << *sp << endl;
+    }
+    else
+    {
+        cout << "pointer is invalid." << endl;
+    }
+}
+
+int main()
+{
+    shared_ptr<int> sp1(new int(22));
+    shared_ptr<int> sp2 = sp1;
+    weak_ptr<int> wp = sp1; //指向 shared_ptr<int> 所指对象
+
+    cout << *sp1 << endl; //22
+    cout << *sp2 << endl; //22
+    Check(wp);            // still 22
+
+    sp1.reset();
+    cout << *sp2 << endl; //22
+    Check(wp);            //still 22
+
+    sp2.reset();
+    Check(wp); //pointer is invalid
+
+    return 0;
+}
+
+
+```
+
