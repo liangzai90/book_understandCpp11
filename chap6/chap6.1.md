@@ -30,6 +30,39 @@ constexpr MyType mt = {0};
 
 
 
+### 变长参数
+```C++
+#include <stdio.h>
+#include <stdarg.h>
+
+//变长函数
+double SumOfFloat(int count, ...)
+{
+    va_list ap;
+    double sum = 0;
+    //va_start 函数对ap进行初始化
+    va_start(ap, count); //获得变长列表的句柄 ap
+
+    for (int i = 0; i < count; ++i)
+    {
+        sum += va_arg(ap, double); //每次获得一个参数
+    }
+    va_end(ap);
+    return sum;
+}
+
+int main()
+{
+    double ret = SumOfFloat(3, 1.1f, 2.2f, 3.3f);
+    printf("ret:%f\r\n", ret);
+
+    return 0;
+}
+
+```
+
+
+
 
 
 
