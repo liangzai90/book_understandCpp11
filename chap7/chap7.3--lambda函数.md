@@ -1,5 +1,5 @@
 
-初始lambda函数 （匿名函数）
+初识 lambda 函数 （匿名函数）
 
 ```C++
 #include <iostream>
