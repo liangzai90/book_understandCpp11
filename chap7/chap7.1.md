@@ -37,7 +37,27 @@ nullptr 是一个编译时期的常量，它的名字是一个编译时期的关
 而 (void*)0 则必须经过类型转换后才能使用。
 ```
 
+```C++
 
+#include <cstdio>
+#include <cstddef>
+using namespace std;
+
+int main(){
+    nullptr_t my_null;
+    printf("%x\n", &my_null);
+
+    // printf("%x", &nullptr);      // 根据C++11的标准设定，本句无法编译通过
+    printf("%d\n", my_null == nullptr);
+
+    const nullptr_t && default_nullptr = nullptr;    // default_nullptr是nullptr的一个右值引用
+    printf("%x\n", &default_nullptr);
+
+    const nullptr_t && default_nullptr2 = nullptr;    // default_nullptr是nullptr的一个右值引用
+    printf("%x\n", &default_nullptr2);
+}
+
+```
 
 
 
