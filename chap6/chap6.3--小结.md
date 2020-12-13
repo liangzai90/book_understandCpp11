@@ -37,16 +37,22 @@ using namespace std;
 
 struct A { ~A() { cout << "Destruct A. " << endl; } };
 
-void closeDevice() { cout << "device is closed." << endl; }
+void closeDeviceA() { cout << "device AAA is closed." << endl; }
+
+void closeDeviceB() { cout << "device BBB is closed." << endl; }
 
 int main() {
     A a;
-    at_quick_exit(closeDevice);
+
+    at_quick_exit(closeDeviceA);
+    at_quick_exit(closeDeviceB);
+
     quick_exit(0);
 }
 
+// device BBB is closed.
+// device AAA is closed.
 
 ```
-
-
+注册的函数被调用的次序与其注册顺序相反，这多少根析构函数的执行与其声明的顺序相反是一致的。
 
