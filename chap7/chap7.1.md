@@ -1,6 +1,9 @@
 
 
-### 认识 nullptr
+### 认识 指针空值 nullptr
+
+void*  无类型指针
+nullptr  指针空值
 
 ```C++
 #include <iostream>
