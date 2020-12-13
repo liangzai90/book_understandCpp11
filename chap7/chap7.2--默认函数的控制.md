@@ -187,16 +187,48 @@ int main(){
 ```
 
 
+#### 显示删除的一些有趣用法
+
+使用显示删除来删除自定义类型的 operator new 操作符，就可以避免在堆上分配该class的对象
+```C++
+#include <cstddef>
+
+class NoHeapAlloc{
+public:
+    void * operator new(std::size_t) = delete;
+};
+
+int main(){
+    NoHeapAlloc nha;
+    NoHeapAlloc * pnha = new NoHeapAlloc;   // 编译失败
+    return 1;
+}
+```
 
 
+我们需要对象在指定内存位置进行内存分配，并且不需要析构函数来完成一些对象级别的清理。
+我们可以通过显示删除析构函数来限制自定义类型在栈上或者静态的构造。
+```C++
+#include <cstddef>
+#include <new>
 
+extern void* p;
 
+class NoStackAlloc{
+public:
+    ~NoStackAlloc() = delete;
+};
 
+int main(){
+    NoStackAlloc nsa;   // 无法通过编译
+    new (p) NoStackAlloc(); // placement new, 假设无需析构
+    return 1;
+}
 
+```
+由于placement new 构造的对象，编译器不会为其调用析构函数，
+因此，析构函数被删除的类能够正常地构造。
 
-
-
-
-
+### 推而广之，将显示删除析构函数用于 构件单件模式（singleton）
 
 
