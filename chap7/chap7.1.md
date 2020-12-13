@@ -3,7 +3,8 @@
 ### 认识 指针空值 nullptr
 
 void*  无类型指针
-nullptr  指针空值
+
+nullptr  指针空值 
 
 ```C++
 #include <iostream>
@@ -21,7 +22,7 @@ void f(int){
 
 int main() {
     f(nullptr);  //调用 f(char*) 版本
-    f(0);  //调用 f(int) 版本
+    f(0);     //调用 f(int) 版本
 
     return 0;
 }
