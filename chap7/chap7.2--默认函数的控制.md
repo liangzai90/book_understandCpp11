@@ -113,13 +113,78 @@ C++11称 "= defalut" 修饰的函数为显示缺省（explicit  defaulted）函�
 而称 "= delete" 修饰的函数为删除（deleted）函数。
 
 
+ 在类定义外用"= default"来指明使用缺省版本
+```C++
+
+class DefaultedOptr{
+public:
+    // 使用"= default"来产生缺省版本
+    DefaultedOptr() = default;   
+
+    // 这里没使用"= default"
+    DefaultedOptr & operator = (const DefaultedOptr & );
+};
+
+// 在类定义外用"= default"来指明使用缺省版本
+inline DefaultedOptr & DefaultedOptr::operator =( const DefaultedOptr & ) = default; 
+
+```
 
 
+显示删除可以避免编译器做一些不必要的隐式数据类型转换
+```C++
+class ConvType {
+public:
+    ConvType(int i) {};
+    ConvType(char c) = delete;  // 删除char版本
+};
+
+void Func(ConvType ct) {}
+
+int main() {
+    Func(3);
+    Func('a');  // 无法通过编译
+
+    ConvType ci(3);
+    ConvType cc('a');   // 无法通过编译
+}
+    
+
+```
 
 
+不建议用户将 explicit 关键字和显示删除合用，会引起一些混乱性。
+```C++
+class ConvType {
+public:
+    ConvType(int i) {};
+    explicit ConvType(char c) = delete;  // 删除explicit的char构造函数
+};
+
+void Func(ConvType ct) {}
+
+int main() {
+    Func(3);
+    Func('a');      // 可以通过编译
+
+    ConvType ci(3);
+    ConvType cc('a');   // 无法通过编译
+}
+    
+```
 
 
+对于一些普通的函数，我们依然可以通过显示删除来禁止类型转换
+```C++
+void Func(int i){};
+void Func(char c) = delete;  // 显式删除char版本
 
+int main(){
+    Func(3);
+    Func('c');  // 本句无法通过编译
+    return 1;
+}
+```
 
 
 
