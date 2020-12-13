@@ -62,9 +62,46 @@ int main(){
 
 ```
 
+使用捕捉列表改写前面的例子：
 
+```C++
+int main() {
+    int boys = 4, int girls = 3;
+    auto totalChild = [girls, &boys]()->int{ return girls + boys; }; 
+    return totalChild();
+}
+```
 
+#### 捕捉列表有如下几种形式
 
+ - > [var]表示值传递方式捕捉变量 var
+
+ - > [=]表示值传递方式捕捉所有父作用域的变量（ 包括 this ）
+
+ - > [&var]表示引用传递捕捉变量 var
+
+ - > [&]表示引用传递捕捉所有父作用域的变量（ 包括 this ）
+
+ - > [this]表示值传递方式捕捉当前的 this 指针
+
+通过一些组合，捕捉列表可以表示更复杂的意思，比如：
+
+ - > [=,&a,&b]
+
+ - > [&,a,this]
+
+不过，值得注意的是，捕捉列表不允许变量重复传递。下面的例子就是典型的重复，会导致编译时期的错误。
+ - > [=,a] 这里 "=" 已经以值传递方式捕捉了所有变量，捕捉a重复
+ - > [&,&this]这里 "&" 已经以引用传递方式捕捉了所有变量，再捕捉 this 也是一种重复。
+
+通过 [=] 来声明捕捉列表，进而对 totalChild 书写上的进一步简化
+```C++
+int main() {
+    int boys = 4, int girls = 3;
+    auto totalChild = [=]()->int{ return girls + boys; }; 
+    return totalChild();
+}
+```
 
 
 
