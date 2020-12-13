@@ -27,6 +27,9 @@ int  thread_local  errCode;
 5.快速退出: quick_exit 与  at_quick_exit
 quick_exit是一项多线程情况下的新发明，可以用于解除因为退出造成的死锁等不良状态。
 不过读者也可以尝试着使用它来免除大量的不必要的析构函数调用。
+
+与abort不同的是，abort的结果通常是异常退出，而quick_exit 与 exit 同属于正常退出。
+此外，使用 at_quick_exit 注册的函数，也可以在 quick_exit的时候被调用。
 ```C++
 #include <cstdlib>
 #include <iostream>
