@@ -47,7 +47,7 @@ void Above(int ubound) {
 
 
 
-传统for,内置functor，lambda函数比较
+#### 传统for,内置functor，lambda函数比较
 lambda还是更加简洁、高效
 ```C++
 
