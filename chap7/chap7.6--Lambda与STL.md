@@ -9,7 +9,8 @@
         return rand() % 10;
     });
 
-// lambda函数，传入的参数是vector的一个value
+    // lambda函数，传入的参数是vector的一个value
+    // for_each是对vector的每个元素进行一次 函数操作，这里的元素是int类型
     for_each(v.begin(), v.end(), [](int i) { cout << i << ","; });
     cout << endl;
 
